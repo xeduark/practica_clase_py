@@ -1,0 +1,21 @@
+# Ignorar el entorno virtual
+venv/
+__pycache__/
+
+# Ignorar archivos de configuración de IDEs
+.vscode/
+.idea/
+
+# Ignorar archivos de datos de Firebase (ajusta la ruta si es necesario)
+practicapython-9823d-firebase-adminsdk-94nzy-31185a8ebe.json
+
+# Ignorar archivos de caché de Python
+*.pyc
+*.pyo
+*.pyd
+
+# Ignorar archivos de log
+*.log
+
+# Ignorar archivos temporales
+*.tmp

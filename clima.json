@@ -1,0 +1,41 @@
+{
+    "colombia": [
+      {
+        "ciudad": "Bogotá",
+        "temperatura": 14,
+        "clima": "Nublado",
+        "humedad": 80
+      },
+      {
+        "ciudad": "Medellín",
+        "temperatura": 22,
+        "clima": "Parcialmente soleado",
+        "humedad": 70
+      },
+      {
+        "ciudad": "Cali",
+        "temperatura": 28,
+        "clima": "Soleado",
+        "humedad": 60
+      },
+      {
+        "ciudad": "Cartagena",
+        "temperatura": 30,
+        "clima": "Soleado",
+        "humedad": 75
+      },
+      {
+        "ciudad": "Barranquilla",
+        "temperatura": 29,
+        "clima": "Soleado",
+        "humedad": 78
+      },
+      {
+        "ciudad": "Bucaramanga",
+        "temperatura": 24,
+        "clima": "Lluvia ligera",
+        "humedad": 85
+      }
+    ]
+  }
+  

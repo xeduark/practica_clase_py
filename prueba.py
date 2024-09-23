@@ -1,76 +1,24 @@
-def saludar(nombre):
-    """
-    Función que saluda a una persona.
+import firebase_admin
+from firebase_admin import credentials, firestore
 
-    Args:
-        nombre: El nombre de la persona a la que se saluda.
+# Ruta al archivo JSON de la cuenta de servicio
+cred = credentials.Certificate("C:/Users/2811750/Downloads/practicapython-9823d-firebase-adminsdk-94nzy-31185a8ebe.json")
 
-    Returns:
-        Un mensaje de saludo.
-    """
-    return f"¡Hola, {nombre}!"
+# Inicializar la app de Firebase
+try:
+    firebase_admin.initialize_app(cred)
+except ValueError:
+    print("La app de Firebase ya está inicializada.")
 
-def despedirse(nombre):
-    """
-    Función que se despide de una persona.
+# Conectar a la base de datos Firestore
+db = firestore.client()
 
-    Args:
-        nombre: El nombre de la persona a la que se despide.
+# Referencia a la colección
+usuarios_ref = db.collection('usuarios')
 
-    Returns:
-        Un mensaje de despedida.
-    """
-    return f"¡Adiós, {nombre}!"
+# Consultar todos los documentos en la colección "usuarios"
+usuarios = usuarios_ref.get()
 
-def preguntar_como_esta(nombre):
-    """
-    Función que pregunta cómo está la persona.
-
-    Args:
-        nombre: El nombre de la persona a la que se pregunta.
-
-    Returns:
-        Un mensaje preguntando cómo está.
-    """
-    return f"¿Cómo estás, {nombre}?"
-
-def felicitar_cumpleanos(nombre):
-    """
-    Función que felicita a una persona por su cumpleaños.
-
-    Args:
-        nombre: El nombre de la persona a la que se felicita.
-
-    Returns:
-        Un mensaje de felicitación por el cumpleaños.
-    """
-    return f"¡Feliz cumpleaños, {nombre}!"
-
-def preguntar_dia_semana():
-    """
-    Función que pregunta por el día de la semana.
-
-    Returns:
-        Un mensaje preguntando por el día de la semana.
-    """
-    import datetime
-    dia_semana = datetime.datetime.now().strftime("%A")
-    return f"Hoy es {dia_semana}. ¿Cómo va tu día?"
-
-if __name__ == "__main__":
-    nombre = input("Ingrese su nombre: ")
-    saludo = saludar(nombre)
-    print(saludo)
-
-    estado = preguntar_como_esta(nombre)
-    print(estado)
-
-    cumpleaños = input("¿Es tu cumpleaños hoy? (sí/no): ").strip().lower()
-    if cumpleaños == "sí":
-        print(felicitar_cumpleanos(nombre))
-
-    dia_semana_mensaje = preguntar_dia_semana()
-    print(dia_semana_mensaje)
-
-    despedida = despedirse(nombre)
-    print(despedida)
+# Imprimir los datos de cada documento
+for usuario in usuarios:
+    print(f'{usuario.id} => {usuario.to_dict()}')
