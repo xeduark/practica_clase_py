@@ -19,43 +19,35 @@ usuarios_ref = db.collection('usuarios')
 # Título de la aplicación
 st.title("Gestión de Usuarios")
 
-# Función para agregar un nuevo usuario
+# Funciones de agregar, eliminar y editar usuario
 def agregar_usuario(nombre, edad, ciudad):
     usuarios_ref.add({"nombre": nombre, "edad": edad, "ciudad": ciudad})
     st.success("Usuario agregado exitosamente")
 
-# Función para eliminar un usuario
 def eliminar_usuario(user_id):
     usuarios_ref.document(user_id).delete()
     st.success(f"Usuario con ID {user_id} eliminado exitosamente")
 
-# Función para editar un usuario existente
 def editar_usuario(user_id, nombre, edad, ciudad):
     usuarios_ref.document(user_id).set({"nombre": nombre, "edad": edad, "ciudad": ciudad})
     st.success(f"Usuario con ID {user_id} actualizado exitosamente")
 
-# Consultar todos los documentos en la colección "usuarios"
+# Consultar usuarios y mostrarlos en una tabla
 usuarios = usuarios_ref.get()
-
-# Crear una lista para almacenar los datos
 data = []
-
-# Agregar los datos a la lista
 for usuario in usuarios:
     user_data = usuario.to_dict()
-    user_data['ID'] = usuario.id  # Agregar el ID del documento
+    user_data['ID'] = usuario.id
     data.append(user_data)
 
-# Convertir la lista a un DataFrame de pandas
 df = pd.DataFrame(data)
 
-# Mostrar datos en una tabla de Streamlit
 if not df.empty:
-    st.dataframe(df)  # o st.table(df) para una tabla estática
+    st.dataframe(df)
 else:
     st.write("No se encontraron usuarios.")
 
-# Formulario para agregar un nuevo usuario
+# Formularios para agregar, editar y eliminar usuarios
 st.subheader("Agregar nuevo usuario")
 with st.form("Agregar usuario"):
     nombre = st.text_input("Nombre")
@@ -65,7 +57,6 @@ with st.form("Agregar usuario"):
     if submit_agregar:
         agregar_usuario(nombre, edad, ciudad)
 
-# Formulario para editar un usuario existente
 st.subheader("Editar usuario existente")
 with st.form("Editar usuario"):
     user_id = st.selectbox("Selecciona el ID del usuario", df["ID"] if not df.empty else [])
@@ -76,7 +67,6 @@ with st.form("Editar usuario"):
     if submit_editar:
         editar_usuario(user_id, nombre, edad, ciudad)
 
-# Formulario para eliminar un usuario
 st.subheader("Eliminar usuario")
 with st.form("Eliminar usuario"):
     user_id = st.selectbox("Selecciona el ID del usuario a eliminar", df["ID"] if not df.empty else [])
